@@ -24,7 +24,7 @@ while read untrimmed_line; do
   if test -z "$line"; then # => empty line encountered => end of header reached
     echo "requested filename: $filename"
     if test -e "$filename"; then
-      filesize=`stat -c "%s" "$filename"`
+      filesize=`stat -Lc "%s" "$filename"`
       echo "file size: $filesize"
       header=`echo "HTTP/1.1 200 OK
                     Cache-Control: no-cache, no-store, must-revalidate
