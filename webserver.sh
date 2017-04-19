@@ -1,4 +1,6 @@
 #!/bin/bash
+port="$1"
+if test -z "$port"; then port="3000"; fi
 PREFIX="./public"
 function strip_margin {
   sed -r "s|^ +||"
@@ -6,7 +8,7 @@ function strip_margin {
 function convert_newlines {
   sed -r "s|$|\r|"
 }
-coproc nc -k -l -p 3000 # launch netcat
+coproc nc -k -l -p "$port" # launch netcat
 input="${COPROC[0]}" # get "read" file descriptor (netcat's stdout)
 output="${COPROC[1]}" # get "write" file descriptor (netcat's stdin)
 filename=""
