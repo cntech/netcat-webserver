@@ -26,8 +26,8 @@ while read untrimmed_line; do
     if test -e "$filename"; then
       filesize=`stat -c "%s" "$filename"`
       echo "file size: $filesize"
-      # Content-Type: text/html; charset=UTF-8
       header=`echo "HTTP/1.1 200 OK
+                    Cache-Control: no-cache, no-store, must-revalidate
                     Connection: close
                     Content-Length: $filesize
                     " | strip_margin | convert_newlines`
@@ -37,6 +37,7 @@ while read untrimmed_line; do
     else
       echo "not found"
       header=`echo "HTTP/1.1 404 Not Found
+                    Cache-Control: no-cache, no-store, must-revalidate
                     Connection: close
                     Content-Length: 0
                     " | strip_margin | convert_newlines`
